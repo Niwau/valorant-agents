@@ -1,4 +1,4 @@
-import { Image, Text, View, StyleSheet, ImageBackground, TouchableHighlight } from 'react-native'
+import { Image, Text, View, StyleSheet, ImageBackground } from 'react-native'
 import React from 'react'
 
 interface ICard {
@@ -12,7 +12,7 @@ interface ICard {
 export default function Card({ agentImage, agentName, agentRole, bgImage, colors }: ICard) {
   return (
     <ImageBackground style={{ backgroundColor: `#${colors[1]}`, ...styles.container }} imageStyle={{ opacity: 0.2 }} source={{ uri: bgImage }}>
-      <View style={{ marginLeft: 32, top: -60 }}>
+      <View style={{ top: -60 }}>
         <Image style={styles.agent} source={{ uri: agentImage }}/>
         <Text style={styles.role}>{ agentRole.toUpperCase() }</Text>
         <Text style={styles.name}>{ agentName.toUpperCase() }</Text>
@@ -33,11 +33,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   role: {
+    color: 'white',
+    marginLeft: 32,
     fontSize: 16,
     fontWeight: '300',
     letterSpacing: 3,
   },
   name: {
+    color: 'white',
+    marginLeft: 32,
     fontSize: 32,
     fontWeight: '800',
     letterSpacing: 3,

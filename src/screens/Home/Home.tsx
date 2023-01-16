@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { View, StyleSheet, Image, StatusBar, FlatList, Text, ScrollView, ActivityIndicator } from 'react-native'
+import React, { useContext } from 'react'
+import { View, StyleSheet, Image, StatusBar, FlatList, ActivityIndicator } from 'react-native'
 import { Nav } from '../../components/Nav/Nav';
 import Card from '../../components/Card/Card';
-import { AgentsContext, IAgent } from '../../contexts/AgentsContext';
+import { AgentsContext } from '../../contexts/AgentsContext';
 
 
 export const Home = () => {
 
-  const { agents, isLoaded } = useContext(AgentsContext)
+  const { agents, isLoaded, filteredAgents } = useContext(AgentsContext)
 
   const CardList = 
     <FlatList 
       horizontal 
-      data={agents} 
+      data={filteredAgents} 
       renderItem={ ({ item }) => (
         <Card 
           colors={item.backgroundGradientColors}
