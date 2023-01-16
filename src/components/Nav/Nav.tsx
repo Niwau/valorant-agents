@@ -6,16 +6,16 @@ export const Nav = () => {
     <View>
       <ScrollView horizontal contentContainerStyle={styles.container} showsHorizontalScrollIndicator={false}>
         <TouchableWithoutFeedback>
-          <Text style={styles.navText}>DUELIST</Text>
+          <Text style={styles.navText}>DUELISTA</Text>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback>
-          <Text style={styles.navTextInactive}>CONTROLLER</Text>
+          <Text style={styles.navTextInactive}>CONTROLADOR</Text>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback>
-          <Text style={styles.navTextInactive}>INITIATOR</Text>
+          <Text style={styles.navTextInactive}>INICIADOR</Text>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback>
-          <Text style={styles.navTextInactive}>SENTINEL</Text>
+          <Text style={styles.navTextInactive}>SENTINELA</Text>
         </TouchableWithoutFeedback>  
       </ScrollView>
     </View>
@@ -25,7 +25,7 @@ export const Nav = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 32,
-    marginBottom: 12,
+    marginBottom: 0,
   },
   navText: {
     marginRight: 16,
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     letterSpacing: 3,
-    opacity: 0.3,
+    opacity: 0.6,
   }
 })
