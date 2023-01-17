@@ -1,10 +1,12 @@
-import { View, StyleSheet, Text, ScrollView, StatusBar, FlatList } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, Button } from 'react-native'
 import { AgentScreenProps } from '../../../App'
 import { useContext, useState, useEffect } from 'react'
 import { AgentsContext } from '../../contexts/AgentsContext'
 import { IAgent } from '../../types/Agent'
 import { Card } from '../../components/Card/Card'
 import Tag from '../../components/Tag/Tag'
+import Skill from '../../components/Skill/Skill'
+import Play from '../../components/Play/Play'
 
 export const Agent = ({ route, navigation }: AgentScreenProps) => {
 
@@ -27,6 +29,10 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
     />
   ))
 
+  const Skills = selectedAgent?.abilities.map(skill => (
+    <Skill key={skill.slot} name={skill.displayName} image={skill.displayIcon} isActive={false}/>
+  ))
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{...styles.cardContainer, backgroundColor: `#${selectedAgent?.backgroundGradientColors[1]}` }}>
@@ -41,9 +47,22 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
       <View style={styles.tagsContainer}>
         { Tags }
       </View>
-      <View style={styles.sectionContainer}>
+      <View style={{...styles.sectionContainer, marginRight: 32}}>
         <Text style={styles.title}>DESCRIÇÃO</Text>
         <Text style={styles.content}>{selectedAgent?.description}</Text>
+      </View>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.title}>HABILIDADES</Text>
+        <ScrollView horizontal contentContainerStyle={styles.skillsContainer}>
+          { Skills }
+        </ScrollView>
+      </View>
+      <View style={{...styles.sectionContainer, marginRight: 32}}>
+        <Text style={styles.title}>{selectedAgent?.abilities[0].displayName}</Text>
+        <Text style={styles.content}>{selectedAgent?.abilities[0].description}</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Play/>
       </View>
     </ScrollView>
   )
@@ -80,7 +99,13 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginLeft: 32,
-    marginVertical: 32,
+    marginVertical: 16,
     flex: 1,
+  },
+  skillsContainer: {
+    marginTop: 8,
+  },
+  buttonContainer: {
+    margin: 32,
   }
 })
