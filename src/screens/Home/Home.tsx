@@ -1,37 +1,39 @@
 import React, { useContext } from 'react'
-import { View, StyleSheet, Image, StatusBar, FlatList, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, Image, StatusBar, FlatList, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
 import { Nav } from '../../components/Nav/Nav';
-import Card from '../../components/Card/Card';
+import { Card } from '../../components/Card/Card';
 import { AgentsContext } from '../../contexts/AgentsContext';
+import { HomeScreenProps } from '../../../App';
 
+export const Home = ({ navigation }: HomeScreenProps) => {
 
-export const Home = () => {
-
-  const { agents, isLoaded, filteredAgents } = useContext(AgentsContext)
+  const { isLoaded, filteredAgents } = useContext(AgentsContext)
 
   const CardList = 
     <FlatList 
       horizontal 
       data={filteredAgents} 
       renderItem={ ({ item }) => (
-        <Card 
-          colors={item.backgroundGradientColors}
-          agentRole={item.role.displayName}
-          bgImage={item.background}
-          agentImage={item.fullPortrait}
-          agentName={item.displayName}
-        />
+        <TouchableOpacity style={styles.touchable} activeOpacity={0.9} onPress={() => navigation.navigate('Agent', { uuid: item.uuid })}>
+          <Card 
+            color={item.backgroundGradientColors[1]}
+            agentRole={item.role.displayName}
+            bgImage={item.background}
+            agentImage={item.fullPortrait}
+            agentName={item.displayName}
+          />
+        </TouchableOpacity>
       )} 
       keyExtractor={item => item.uuid}
     />
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <StatusBar backgroundColor='#14171F'/>
       <Image source={require('../../../assets/valorant-logo.png')}/>
       <Nav/>
       { !isLoaded ? <ActivityIndicator/> : CardList }
-    </View>
+    </ScrollView>
   )
 }
 
@@ -43,4 +45,9 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     backgroundColor: '#14171F',
   },
+  touchable: {
+    width: 300,
+    marginRight: 8,
+    marginTop: 32,
+  }
 });

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react'
-import { IAgentsContext } from '../types/IAgentsContext';
+import { IAgentsContext } from '../types/AgentsContext';
 import { Role } from '../types/Role';
-import { IAgent } from '../types/IAgent';
+import { IAgent } from '../types/Agent';
 import { Children } from '../types/Children';
 import { api } from '../services/api';
 

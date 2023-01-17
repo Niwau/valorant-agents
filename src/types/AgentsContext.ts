@@ -1,4 +1,4 @@
-import { IAgent } from "./IAgent"
+import { IAgent } from "./Agent"
 import { Role } from "./Role"
 
 export interface IAgentsContext {

@@ -1,21 +1,13 @@
 import { Image, Text, View, StyleSheet, ImageBackground } from 'react-native'
-import React from 'react'
+import { ICard } from '../../types/Card'
 
-interface ICard {
-  agentName: string
-  agentRole: string
-  bgImage: string
-  colors: string[4]
-  agentImage: string
-}
-
-export default function Card({ agentImage, agentName, agentRole, bgImage, colors }: ICard) {
+export const Card = ({ agentImage, agentName, agentRole, bgImage, color }: ICard) => {
   return (
-    <ImageBackground style={{ backgroundColor: `#${colors[1]}`, ...styles.container }} imageStyle={{ opacity: 0.2 }} source={{ uri: bgImage }}>
-      <View style={{ top: -60 }}>
-        <Image style={styles.agent} source={{ uri: agentImage }}/>
-        <Text style={styles.role}>{ agentRole.toUpperCase() }</Text>
-        <Text style={styles.name}>{ agentName.toUpperCase() }</Text>
+    <ImageBackground style={{ backgroundColor: `#${color}`, ...styles.container }} imageStyle={{ opacity: 0.2 }} source={{ uri: bgImage }}>
+      <View style={{ top: -60, flex: 1 }}>
+        <Image style={{ flex: 1 }} source={{ uri: agentImage }}/>
+        <Text style={styles.role}>{ agentRole }</Text>
+        <Text style={styles.name}>{ agentName }</Text>
       </View>
     </ImageBackground>
   )
@@ -23,14 +15,9 @@ export default function Card({ agentImage, agentName, agentRole, bgImage, colors
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 32,
-    width: 300,
-    marginRight: 8,
-    borderRadius: 15,
-  },
-  agent: {
-    flexBasis: 600,
+    width: '100%',
     flex: 1,
+    borderRadius: 15,
   },
   role: {
     color: 'white',
