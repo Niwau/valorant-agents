@@ -43,7 +43,7 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
       </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.title}>DESCRIÇÃO</Text>
-        <Text style={styles.title}>{selectedAgent?.description}</Text>
+        <Text style={styles.content}>{selectedAgent?.description}</Text>
       </View>
     </ScrollView>
   )
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     paddingTop: 64,
     width: '100%',
-    height: '85%',
+    minHeight: 750,
   },
   tagsContainer: {
     flexDirection: 'row', 
@@ -70,6 +70,13 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     fontSize: 16,
     fontWeight: '600',
+    marginBottom: 8,
+  },
+  content: {
+    color: 'white',
+    letterSpacing: 1.5,
+    fontSize: 16,
+    fontWeight: '300',
   },
   sectionContainer: {
     marginLeft: 32,
