@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View, Text } from 'react-native'
+import { StyleSheet, Image, View } from 'react-native'
 import React from 'react'
 
 interface ISkill {
@@ -22,13 +22,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     borderWidth: 1,
-    borderColor: 'white',
+    borderStyle: 'solid',
+    borderColor: '#ffffff',
     borderRadius: 5,
   },
   containerActive: {
     marginRight: 8,
     flex: 1,
     padding: 12,
+    borderStyle: 'solid',
     backgroundColor: '#FA4454',
     borderRadius: 5,
     borderWidth: 1,

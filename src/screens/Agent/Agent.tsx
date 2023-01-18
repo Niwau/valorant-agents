@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, ScrollView, Button } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, Button, TouchableOpacity } from 'react-native'
 import { AgentScreenProps } from '../../../App'
 import { useContext, useState, useEffect } from 'react'
 import { AgentsContext } from '../../contexts/AgentsContext'
@@ -14,11 +14,19 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
   const { uuid } = route.params
 
   const [selectedAgent, setSelectedAgent] = useState<IAgent>();
+  const [selectedSkill, setSelectedSkill] = useState({
+    name: '',
+    description: ''
+  });
 
   useEffect(() => {
     const agent = agents.find(agent => agent.uuid == uuid)
     setSelectedAgent(agent)
     navigation.setOptions({ statusBarColor: `#${agent?.backgroundGradientColors[1]}` })
+    setSelectedSkill({
+      name: agent?.abilities[0].displayName!,
+      description: agent?.abilities[0].description!
+    })
   }, [])
 
   const Tags = selectedAgent?.characterTags?.map(tag => (
@@ -30,7 +38,12 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
   ))
 
   const Skills = selectedAgent?.abilities.map(skill => (
-    <Skill key={skill.slot} name={skill.displayName} image={skill.displayIcon} isActive={false}/>
+   <TouchableOpacity key={skill.slot} onPress={() => setSelectedSkill({
+    name: skill.displayName,
+    description: skill.description
+   })}>
+     <Skill name={skill.displayName} image={skill.displayIcon} isActive={false}/>
+   </TouchableOpacity>
   ))
 
   return (
@@ -58,8 +71,8 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
         </ScrollView>
       </View>
       <View style={{...styles.sectionContainer, marginRight: 32}}>
-        <Text style={styles.title}>{selectedAgent?.abilities[0].displayName}</Text>
-        <Text style={styles.content}>{selectedAgent?.abilities[0].description}</Text>
+        <Text style={styles.title}>{selectedSkill.name}</Text>
+        <Text style={styles.content}>{selectedSkill.description}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Play/>
