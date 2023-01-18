@@ -34,9 +34,6 @@ export const styles = StyleSheet.create({
     marginVertical: 16,
     flex: 1,
   },
-  skillsContainer: {
-    marginTop: 8,
-  },
   buttonContainer: {
     margin: 32,
   }

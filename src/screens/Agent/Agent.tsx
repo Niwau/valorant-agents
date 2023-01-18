@@ -1,10 +1,10 @@
 import { View, Text, ScrollView } from 'react-native'
 import { Card } from '../../components/molecules/Card/Card'
-import Tag from '../../components/molecules/Tag/Tag'
-import Skill from '../../components/molecules/Skill/Skill'
 import Play from '../../components/molecules/Play/Play'
 import { styles } from './styles'
 import { useAgent } from '../../hooks/useAgent'
+import { TagList } from '../../components/organisms/TagList/TagList'
+import { SkillList } from '../../components/organisms/SkillList/SkillList'
 
 export const Agent = () => {
 
@@ -15,30 +15,14 @@ export const Agent = () => {
       <View style={{...styles.cardContainer, backgroundColor: color }}>
         <Card {...selectedAgent!} role={selectedAgent?.role.displayName!} color={color}/>
       </View>
-      <View style={styles.tagsContainer}>
-        {
-          selectedAgent?.characterTags?.map((tag, index) => <Tag key={index} color={color} name={tag}/>)
-        }
-      </View>
+      <TagList agent={selectedAgent!} color={color}/>
       <View style={{...styles.sectionContainer, marginRight: 32}}>
         <Text style={styles.title}>DESCRIÇÃO</Text>
         <Text style={styles.content}>{selectedAgent?.description}</Text>
       </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.title}>HABILIDADES</Text>
-        <ScrollView horizontal contentContainerStyle={styles.skillsContainer}>
-          { 
-            selectedAgent?.abilities!.map(skill => {
-              return (
-                <Skill 
-                  {...skill} 
-                  key={skill.slot} 
-                  onPress={() => setSelectedSkill({...skill })} 
-                  isActive={skill.displayName == selectedSkill.displayName ? true : false}/>
-              )
-            }) 
-          }
-        </ScrollView>
+        <SkillList agent={selectedAgent!} setSelectedSkill={setSelectedSkill} selectedSkill={selectedSkill.displayName}/>
       </View>
       <View style={{...styles.sectionContainer, marginRight: 32}}>
         <Text style={styles.title}>{selectedSkill.displayName}</Text>

@@ -20,7 +20,7 @@ export const useAgent = () => {
     const agent = agents.find(agent => agent.uuid == uuid)
     setSelectedAgent(agent)
     setColor(`#${agent?.backgroundGradientColors[1]!}`)
-    setOptions({ statusBarColor: color })
+    setOptions({ statusBarColor: `#${agent?.backgroundGradientColors[1]!}` })
     setSelectedSkill({
       displayName: agent?.abilities[0].displayName!,
       description: agent?.abilities[0].description!
