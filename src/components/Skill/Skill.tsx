@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: '#ffffff',
-    borderRadius: 5,
+    borderRadius: 10,
   },
   containerActive: {
     marginRight: 8,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderStyle: 'solid',
     backgroundColor: '#FA4454',
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
   },
   skillName: {

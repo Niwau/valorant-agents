@@ -42,7 +42,7 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
     name: skill.displayName,
     description: skill.description
    })}>
-     <Skill name={skill.displayName} image={skill.displayIcon} isActive={false}/>
+     <Skill name={skill.displayName} image={skill.displayIcon} isActive={selectedSkill.name == skill.displayName ? true : false}/>
    </TouchableOpacity>
   ))
 
