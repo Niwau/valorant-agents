@@ -1,64 +1,24 @@
-import { View, StyleSheet, Text, ScrollView, Button, TouchableOpacity } from 'react-native'
-import { AgentScreenProps } from '../../../App'
-import { useContext, useState, useEffect } from 'react'
-import { AgentsContext } from '../../contexts/AgentsContext'
-import { IAgent } from '../../types/Agent'
-import { Card } from '../../components/Card/Card'
-import Tag from '../../components/Tag/Tag'
-import Skill from '../../components/Skill/Skill'
-import Play from '../../components/Play/Play'
+import { View, Text, ScrollView } from 'react-native'
+import { Card } from '../../components/molecules/Card/Card'
+import Tag from '../../components/molecules/Tag/Tag'
+import Skill from '../../components/molecules/Skill/Skill'
+import Play from '../../components/molecules/Play/Play'
+import { styles } from './styles'
+import { useAgent } from '../../hooks/useAgent'
 
-export const Agent = ({ route, navigation }: AgentScreenProps) => {
+export const Agent = () => {
 
-  const { agents } = useContext(AgentsContext)
-  const { uuid } = route.params
-
-  const [selectedAgent, setSelectedAgent] = useState<IAgent>();
-  const [selectedSkill, setSelectedSkill] = useState({
-    name: '',
-    description: ''
-  });
-
-  useEffect(() => {
-    const agent = agents.find(agent => agent.uuid == uuid)
-    setSelectedAgent(agent)
-    navigation.setOptions({ statusBarColor: `#${agent?.backgroundGradientColors[1]}` })
-    setSelectedSkill({
-      name: agent?.abilities[0].displayName!,
-      description: agent?.abilities[0].description!
-    })
-  }, [])
-
-  const Tags = selectedAgent?.characterTags?.map(tag => (
-    <Tag 
-      key={tag} 
-      color={`#${selectedAgent?.backgroundGradientColors[1]}`} 
-      name={tag}
-    />
-  ))
-
-  const Skills = selectedAgent?.abilities.map(skill => (
-   <TouchableOpacity key={skill.slot} onPress={() => setSelectedSkill({
-    name: skill.displayName,
-    description: skill.description
-   })}>
-     <Skill name={skill.displayName} image={skill.displayIcon} isActive={selectedSkill.name == skill.displayName ? true : false}/>
-   </TouchableOpacity>
-  ))
+  const { color, selectedAgent, selectedSkill, setSelectedSkill } = useAgent();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{...styles.cardContainer, backgroundColor: `#${selectedAgent?.backgroundGradientColors[1]}` }}>
-        <Card
-          agentImage={selectedAgent?.fullPortrait!}
-          agentName={selectedAgent?.displayName!}
-          agentRole={selectedAgent?.role.displayName!}
-          bgImage={selectedAgent?.background!}
-          color={selectedAgent?.backgroundGradientColors[1]!}
-        />
+      <View style={{...styles.cardContainer, backgroundColor: color }}>
+        <Card {...selectedAgent!} role={selectedAgent?.role.displayName!} color={color}/>
       </View>
       <View style={styles.tagsContainer}>
-        { Tags }
+        {
+          selectedAgent?.characterTags?.map((tag, index) => <Tag key={index} color={color} name={tag}/>)
+        }
       </View>
       <View style={{...styles.sectionContainer, marginRight: 32}}>
         <Text style={styles.title}>DESCRIÇÃO</Text>
@@ -67,11 +27,21 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
       <View style={styles.sectionContainer}>
         <Text style={styles.title}>HABILIDADES</Text>
         <ScrollView horizontal contentContainerStyle={styles.skillsContainer}>
-          { Skills }
+          { 
+            selectedAgent?.abilities!.map(skill => {
+              return (
+                <Skill 
+                  {...skill} 
+                  key={skill.slot} 
+                  onPress={() => setSelectedSkill({...skill })} 
+                  isActive={skill.displayName == selectedSkill.displayName ? true : false}/>
+              )
+            }) 
+          }
         </ScrollView>
       </View>
       <View style={{...styles.sectionContainer, marginRight: 32}}>
-        <Text style={styles.title}>{selectedSkill.name}</Text>
+        <Text style={styles.title}>{selectedSkill.displayName}</Text>
         <Text style={styles.content}>{selectedSkill.description}</Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -80,45 +50,3 @@ export const Agent = ({ route, navigation }: AgentScreenProps) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#14171F',
-  },
-  cardContainer: {
-    paddingTop: 64,
-    width: '100%',
-    minHeight: 750,
-  },
-  tagsContainer: {
-    flexDirection: 'row', 
-    marginHorizontal: 32,
-    width: '100%',
-    marginTop: 12,
-  },
-  title: {
-    color: 'white',
-    letterSpacing: 1.5,
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  content: {
-    color: 'white',
-    letterSpacing: 1.5,
-    fontSize: 16,
-    fontWeight: '300',
-  },
-  sectionContainer: {
-    marginLeft: 32,
-    marginVertical: 16,
-    flex: 1,
-  },
-  skillsContainer: {
-    marginTop: 8,
-  },
-  buttonContainer: {
-    margin: 32,
-  }
-})
