@@ -1,4 +1,4 @@
-import { NavigationContainer, RouteProp} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { AgentsContextProvider } from './src/contexts/AgentsContext';
 import { Home } from './src/screens/Home/Home';
 import { createNativeStackNavigator, NativeStackNavigationOptions, NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';

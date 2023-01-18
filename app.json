@@ -4,10 +4,10 @@
     "slug": "valorant-agents",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/valorant-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/valorant-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#14171F"
     },
@@ -27,7 +27,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/valorant-logo.png"
     }
   }
 }
